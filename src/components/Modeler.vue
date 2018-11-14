@@ -166,6 +166,8 @@ export default {
      */
     registerBpmnExtension(namespace, extension) {
       this.extensions[namespace] = extension;
+      // Reset moddle
+      this.moddle = new BpmnModdle(this.extensions);
     },
     // This registers a node to use in the bpmn modeler
     registerNodeType(nodeType) {
@@ -233,6 +235,7 @@ export default {
       this.$emit('parsed');
     },
     loadXML(xml) {
+
       this.nodes = {};
       this.moddle.fromXML(xml, (err, definitions) => {
         if (!err) {
@@ -402,7 +405,7 @@ export default {
     },
   },
   created() {
-    this.moddle = new BpmnModdle(this.extensions);
+      this.moddle = new BpmnModdle(this.extensions);
   },
   mounted() {
     // Handle window resize
